@@ -1,0 +1,16 @@
+#!/bin/sh
+clear
+declare -a colors=("blue" "green" "red" )
+declare -a colors2=("blue" "green" "red" cyan yellow magenta "bold blue")
+lines=$1
+[[ -z $lines ]] && lines=10
+while true; do
+   l=${#colors[@]}
+   l2=${#colors2[@]}
+   c1=${colors[(($RANDOM%$l))]}
+   c2=${colors2[(($RANDOM%$l2))]}
+   c3=${colors[(($RANDOM%$l))]}
+   c4=${colors2[(($RANDOM%$l2))]}
+ echo "\033[12A"
+ git log --graph --pretty="format:'%C${c1}%h%Creset -%C($c2)%d%Creset %s %C$c3(%cr) %C($c4)<%an>%Creset" --abbrev-commit --date=relative -$lines
+done
